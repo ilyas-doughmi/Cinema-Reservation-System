@@ -2,12 +2,18 @@
 
 require_once("Classes/connect.php");
 require_once("Classes/Movie.php");
+require_once("Classes/ShowTimes.php");
+$movie = new Movie;
 
 if(isset($_GET["movie"])){
     $movie_selected = $_GET["movie"];
-    $movie = new Movie();
     $movie_data = $movie->getMovieData($movie_selected);
+    $show_time = new ShowTimes;
+
+    $reservation_time = $show_time->getMovieTime($movie_selected);
 }
+
+
 
 ?>
 
@@ -89,22 +95,14 @@ if(isset($_GET["movie"])){
         </div>
 
         <div class="space-y-6 max-w-sm">
-            
-            <div>
-                <label class="block text-xs text-lux-gold font-bold uppercase tracking-widest mb-2">Select Date</label>
-                <div class="flex gap-3">
-                    <button class="border border-lux-gold bg-lux-gold text-black px-4 py-2 text-sm font-bold">Today</button>
-                    <button class="border border-white/20 text-gray-400 px-4 py-2 text-sm hover:border-white transition">Tomorrow</button>
-                    <button class="border border-white/20 text-gray-400 px-4 py-2 text-sm hover:border-white transition">Sat, 12</button>
-                </div>
-            </div>
+        
 
             <div>
                 <label class="block text-xs text-lux-gold font-bold uppercase tracking-widest mb-2">Select Time</label>
                 <div class="grid grid-cols-3 gap-3">
-                    <button class="border border-white/20 text-gray-400 py-2 text-sm hover:border-white transition">14:30</button>
-                    <button class="border border-lux-gold text-white py-2 text-sm font-bold">18:00</button>
-                    <button class="border border-white/20 text-gray-400 py-2 text-sm hover:border-white transition">21:15</button>
+                    <?php  foreach($reservation_time as $rt) {?>
+                        <button class="border border-white/20 text-gray-400 py-2 text-sm hover:border-white transition"><?= $rt["start_time"] ?></button>
+                    <?php } ?>
                 </div>
             </div>
 

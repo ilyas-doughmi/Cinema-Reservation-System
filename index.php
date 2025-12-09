@@ -106,7 +106,6 @@ $available_movies = $movies->getAllMovies();
         
         <div class="flex gap-10 border-b border-white/10 mb-16 pb-4">
             <span class="text-2xl font-light text-white border-b-2 border-lux-gold pb-4 cursor-pointer">Now Showing</span>
-            <span class="text-2xl font-light text-gray-600 hover:text-white pb-4 transition-all cursor-pointer">Coming Soon</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">

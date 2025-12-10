@@ -11,7 +11,7 @@
 
         $movieObj = new Movie;
         $movie = $movieObj->getMovieData($movie_selected);
-        $movie_reservation = $book->getMovieReservation($movie_selected);
+        $movie_reservation = $book->getMovieReservation($movie_selected,$time_selected);
         $booked_seats = array_column($movie_reservation,"seat_number");
 
     }else{

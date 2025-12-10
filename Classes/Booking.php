@@ -7,10 +7,11 @@ Class Booking extends db{
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public function getMovieReservation($movie_id){
-        $query = "SELECT * FROM booking WHERE show_id = :movie_id";
+    public function getMovieReservation($movie_id,$time){
+        $query = "SELECT * FROM booking WHERE show_id = :movie_id AND time_id = :time";
         $stmt= $this->connect()->prepare($query);
         $stmt->bindParam(":movie_id",$movie_id);
+        $stmt->bindParam(":time",$time);
         $stmt->execute();
         return $stmt->fetchAll();
     }

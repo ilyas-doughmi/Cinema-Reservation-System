@@ -2,14 +2,17 @@
 
     require_once("Classes/connect.php");
     require_once("Classes/Movie.php");
+    require_once("Classes/Booking.php");
 
+    $book = new Booking;
     if(isset($_GET["movie"]) && isset($_GET["time"])){
         $movie_selected = $_GET["movie"];
         $time_selected = $_GET["time"];
 
         $movieObj = new Movie;
         $movie = $movieObj->getMovieData($movie_selected);
-
+        $movie_reservation = $book->getMovieReservation($movie_selected);
+        $booked_seats = array_column($movie_reservation,"seat_number");
 
     }else{
         header("location: index.php");
@@ -39,9 +42,10 @@
                 <?php for($i=1; $i<=20; $i++): ?>
                     <label class="cursor-pointer">
                         <input type="radio" name="seat_number" value="<?= $i ?>" class="peer sr-only">
-                        <div class="w-10 h-10 rounded border border-gray-600 flex items-center justify-center peer-checked:bg-[#D4AF37] peer-checked:text-black hover:bg-gray-700 transition">
-                            <?= $i ?>
-                        </div>
+                         <div class="w-10 h-10 rounded border border-gray-600 flex items-center justify-center 
+                                <?= in_array($i, $booked_seats) ? 'bg-gray-700 text-gray-500' : 'peer-checked:bg-[#D4AF37] peer-checked:text-black hover:bg-gray-700' ?> transition">
+        <?= $i ?>
+    </div>
                     </label>
                 <?php endfor; ?>
             </div>

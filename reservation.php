@@ -111,29 +111,38 @@ if (isset($_GET["time"])){
 
         <div class="space-y-6 max-w-sm">
 
-
             <div>
                 <label class="block text-xs text-lux-gold font-bold uppercase tracking-widest mb-2">Select Time</label>
                 <div class="grid grid-cols-3 gap-3">
                     <?php foreach ($reservation_time as $rt) { ?>
-                        <?php if($time_selected == $rt["st_id"]){?>
+                        <?php if($time_selected == $rt["st_id"]){ ?>
                             <a href="reservation.php?movie=<?= $rt["movie_id"] ?>&time=<?= $rt["st_id"] ?>">
-                            <button class="border border-lux-gold text-gray-400 py-2 text-sm hover:border-white transition"><?= $rt["start_time"] ?></button>
-                        </a>
-                        <?php } else {?>
-                             <a href="reservation.php?movie=<?= $rt["movie_id"] ?>&time=<?= $rt["st_id"] ?>">
-                            <button class="border border-white/20 text-gray-400 py-2 text-sm hover:border-white transition"><?= $rt["start_time"] ?></button>
-                        </a>
-                       <?php } ?>
-                        
-                       
+                                <button class="border border-lux-gold text-white font-bold py-2 text-sm transition shadow-[0_0_10px_rgba(212,175,55,0.3)]">
+                                    <?= $rt["start_time"] ?>
+                                </button>
+                            </a>
+                        <?php } else { ?>
+                            <a href="reservation.php?movie=<?= $rt["movie_id"] ?>&time=<?= $rt["st_id"] ?>">
+                                <button class="border border-white/20 text-gray-400 py-2 text-sm hover:border-white transition">
+                                    <?= $rt["start_time"] ?>
+                                </button>
+                            </a>
+                        <?php } ?>
                     <?php } ?>
                 </div>
             </div>
 
-            <button class="w-full bg-white text-black font-bold tracking-[0.2em] py-5 mt-4 hover:bg-lux-gold transition duration-500 uppercase">
-                Confirm Reservation
-            </button>
+            <?php if($time_selected) { ?>
+                <a href="seat-selection.php?movie=<?= $movie_selected ?>&time=<?= $time_selected ?>" class="block w-full">
+                    <button class="w-full bg-white text-black font-bold tracking-[0.2em] py-5 mt-4 hover:bg-lux-gold transition duration-500 uppercase">
+                        Confirm Reservation
+                    </button>
+                </a>
+            <?php } else { ?>
+                <button class="w-full bg-gray-800 text-gray-500 font-bold tracking-[0.2em] py-5 mt-4 cursor-not-allowed uppercase border border-white/10">
+                    Select a Time
+                </button>
+            <?php } ?>
 
             <p class="text-xs text-gray-600 text-center mt-4">
                 *Seat selection will open after time confirmation.
